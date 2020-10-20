@@ -244,10 +244,16 @@ defmodule TimeManager.Store do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_working_times_by_id(attrs \\ %{}) do
+  def create_working_times_by_id(attrs) do
     %WorkingTimes{}
     |> WorkingTimes.changeset(attrs)
     |> Repo.insert()
+  end
+
+  def update_working_time(working_times, user_id) do
+    my_working_time = Repo.get(WorkingTimes, working_times.id)
+    my_working_time = Ecto.Changeset.change(my_working_time, user_id: String.to_integer(user_id))
+    Repo.update!(my_working_time)
   end
 
   @doc """
