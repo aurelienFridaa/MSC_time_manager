@@ -133,9 +133,12 @@ defmodule TimeManager.Store do
       ** (Ecto.NoResultsError)
 
   """
+  def get_clock_by_id!(user_id) do
+    query = from p in Clock, where: p.user_id == ^user_id
+    Repo.all(query)
+  end
   def get_clock!(id), do: Repo.get_by!(Clock, id)
-  def get_clock_by_id!(user_id), do: Repo.get_by!(Clock, user_id: user_id)
-  @doc """
+@doc """
   Creates a clock.
 
   ## Examples

@@ -1,4 +1,5 @@
 defmodule TimeManagerWeb.ClockController do
+  require Logger
   use TimeManagerWeb, :controller
 
   alias TimeManager.Store
@@ -8,7 +9,8 @@ defmodule TimeManagerWeb.ClockController do
 
   def index(conn, %{"userID" => user_id }) do
     clock = Store.get_clock_by_id!(user_id)
-    render(conn, "index.json", clock: clock)
+    Logger.info(clock)
+    render(conn, "index.json", clocks: clock)
   end
 
   def create(conn, %{"userID" => user_id}) do

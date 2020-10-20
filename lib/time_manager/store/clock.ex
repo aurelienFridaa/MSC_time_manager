@@ -4,8 +4,8 @@ defmodule TimeManager.Store.Clock do
 
   schema "clocks" do
     field :status, :boolean, default: false, null: false
-    field :time, :date, null: false
-    belongs_to :user, TimeManager.Store.User
+    field :time, :utc_datetime, null: false
+    belongs_to :user, TimeManager.Store.User, foreign_key: :user_id
 
     timestamps()
   end
