@@ -19,6 +19,6 @@ defmodule TimeManagerWeb.FallbackController do
     conn
     |> put_status(:not_found)
     |> put_view(TimeManagerWeb.ErrorView)
-    |> render(:"404")
+
   end
 end
