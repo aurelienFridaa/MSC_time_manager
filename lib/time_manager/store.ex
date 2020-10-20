@@ -150,10 +150,8 @@ defmodule TimeManager.Store do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_clock_by_user_id(attrs \\ %{}) do
-    %Clock{}
-    |> Clock.changeset(attrs)
-    |> Repo.insert()
+  def create_clock_by_user_id(user_id) do
+    Repo.insert(%Clock{user_id: String.to_integer(user_id), status: true, time: DateTime.truncate(DateTime.utc_now(), :second)})
   end
 
   @doc """
@@ -246,7 +244,7 @@ defmodule TimeManager.Store do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_working_times(attrs \\ %{}) do
+  def create_working_times_by_id(attrs \\ %{}) do
     %WorkingTimes{}
     |> WorkingTimes.changeset(attrs)
     |> Repo.insert()

@@ -9,8 +9,11 @@ defmodule TimeManagerWeb.Router do
     pipe_through :api
 
     resources "/users", UserController, except: [:new, :edit]
-    resources "/workingtimes", WorkingTimesController, except: [:new, :edit]
-    resources "/clocks/:userID", ClockController, except: [:delete, :update, :new, :edit, :show]
+    # resources "/workingtimes", WorkingTimesController, except: [:new, :edit]
+    resources "/clocks/:userID", ClockController, except: [:delete, :update, :new, :edit]
+
+    # get "/workingtimes/:userID/:workingtimes", WorkingTimes
+    post "/workingtimes/:userID", WorkingTimesController, :create
 
   end
 end

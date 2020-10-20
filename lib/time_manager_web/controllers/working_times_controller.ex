@@ -1,4 +1,5 @@
 defmodule TimeManagerWeb.WorkingTimesController do
+  require Logger
   use TimeManagerWeb, :controller
 
   alias TimeManager.Store
@@ -11,11 +12,12 @@ defmodule TimeManagerWeb.WorkingTimesController do
     render(conn, "index.json", workingtimes: workingtimes)
   end
 
-  def create(conn, %{"working_times" => working_times_params}) do
-    with {:ok, %WorkingTimes{} = working_times} <- Store.create_working_times(working_times_params) do
+  def create(conn, %{"userID" => user_id, "working_times" => workingtimes}) do
+    working_times_obj = %{workingtimes | user_id: user_id}
+    Logger.info(working_times_obj)
+    with {:ok, %WorkingTimes{} = working_times} <- Store.create_working_times_by_id(working_times_obj) do
       conn
       |> put_status(:created)
-      |> put_resp_header("location", Routes.working_times_path(conn, :show, working_times))
       |> render("show.json", working_times: working_times)
     end
   end
