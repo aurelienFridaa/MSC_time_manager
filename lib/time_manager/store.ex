@@ -232,7 +232,10 @@ defmodule TimeManager.Store do
   """
   def get_working_times!(id), do: Repo.get!(WorkingTimes, id)
 
-  def get_all_working_times_by_start_and_end_and_user_id!(user_id, start_time, end_time), do: Repo.get_by!(WorkingTimes, [user_id: user_id, start: start_time, end: end_time])
+  def get_all_working_times_by_start_and_end_and_user_id!(user_id) do
+    query = from p in WorkingTimes, where: p.user_id == ^user_id
+    Repo.all(query)
+  end
 
 
   @doc """

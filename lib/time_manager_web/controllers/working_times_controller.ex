@@ -7,9 +7,8 @@ defmodule TimeManagerWeb.WorkingTimesController do
 
   action_fallback TimeManagerWeb.FallbackController
 
-  def index(conn, %{"userID" => user_id, "start" => start_time, "end" => end_time}) do
-    workingtimes = Store.get_all_working_times_by_start_and_end_and_user_id!(user_id, start_time, end_time)
-    Logger.info(workingtimes)
+  def index(conn, %{"userID" => user_id}) do
+    workingtimes = Store.get_all_working_times_by_start_and_end_and_user_id!(user_id)
     render(conn, "index.json", workingtimes: workingtimes)
   end
 
@@ -23,7 +22,6 @@ defmodule TimeManagerWeb.WorkingTimesController do
   end
 
   def show(conn, %{"userID" => user_id, "workingTimeID" => working_times_id}) do
-    Logger.info("NTM")
     working_time = Store.get_working_times!(working_times_id)
     render(conn, "show.json", working_times: working_time)
   end
